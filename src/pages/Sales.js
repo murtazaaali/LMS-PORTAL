@@ -6,6 +6,7 @@ function SalesRecord() {
   useEffect(() => {
     GETSalesData();
   }, []);
+
   const [Issue, setIssue] = useState(null);
   const [FilterData, setFilterData] = useState([]);
   const ref = useRef(null);
@@ -13,24 +14,31 @@ function SalesRecord() {
   const GETSalesData = async () => {
     ref.current.continuousStart();
     const url = `${process.env.REACT_APP_URL}/GETSalesData`;
-    await fetch(url, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => {
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+      });
+
+      if (response.ok) {
+        const res = await response.json();
         ref.current.complete();
+
         if (res.length < 1) {
           setIssue('Sales Record is Empty');
         }
+
         console.log(res);
-        // setQueryData(res);
         setFilterData(res);
-      })
-      .catch((err) => {
+      } else {
         ref.current.complete();
-        console.error(err);
-        setIssue('Some technical Issue occour');
-      });
+        console.error('HTTP error:', response.status);
+        setIssue('Some technical Issue occurred');
+      }
+    } catch (err) {
+      ref.current.complete();
+      console.error(err);
+      setIssue('Some technical Issue occurred');
+    }
   };
 
   return (
@@ -41,7 +49,6 @@ function SalesRecord() {
       </Typography>
 
       {/* Option Table */}
-
       <Stack direction="row">
         {FilterData && (
           <TableContainer>
@@ -51,7 +58,7 @@ function SalesRecord() {
                   <TableCell>Sr#.</TableCell>
                   <TableCell align="right">Student_ID</TableCell>
                   <TableCell align="right">Type</TableCell>
-                  <TableCell align="right">Ammount</TableCell>
+                  <TableCell align="right">Amount</TableCell>
                   <TableCell align="right">Date</TableCell>
                   <TableCell align="right">SalesBy</TableCell>
                 </TableRow>
@@ -60,7 +67,7 @@ function SalesRecord() {
                 {FilterData.map((ele, index) => {
                   return (
                     <TableRow key={index}>
-                      <TableCell>{index}</TableCell>
+                      <TableCell>{index + 1}</TableCell>
                       <TableCell align="right">{ele.Student_ID}</TableCell>
                       <TableCell align="right">{ele.AmmountType}</TableCell>
                       <TableCell align="right">{ele.paidamount}</TableCell>

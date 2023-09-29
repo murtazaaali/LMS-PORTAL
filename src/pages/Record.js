@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import  from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Grid, Stack, Button, Typography } from '@mui/material';
 import { ExpensesRecord } from './Expenses';
@@ -10,28 +9,15 @@ function Record() {
   const [check, setCheck] = useState(true);
   const { recordType } = useParams();
 
-  // const params = useParams();
-  // const recordType = params.recordType;
-
   useEffect(() => {
-    ShowComponent();
+    // No need for the ShowComponent function
   }, []);
-
-  const ShowComponent = () => {
-    if (recordType === 'sales') {
-      return <SalesRecord key={'sales'} />;
-    }
-    if (recordType === 'expenses') {
-      return <ExpensesRecord key={'expenses'} />;
-    }
-    return <div key={'notFound'}>Not Found Table</div>;
-  };
 
   const ExpensesBtn = () => {
     setCheck(!check);
-
     Navigate('/dashboard/record/expenses');
   };
+
   const SalesBtn = () => {
     setCheck(!check);
     Navigate('/dashboard/record/sales');
@@ -46,7 +32,7 @@ function Record() {
     <>
       {recordType && (
         <Container>
-          <Grid conatiner>
+          <Grid container>
             <Grid item>
               {/* Option Button */}
               <Typography variant="h4" align="left">
@@ -61,9 +47,9 @@ function Record() {
                 </Button>
               </Stack>
               {/* Option Table */}
-
-              <ShowComponent />
-
+              {recordType === 'sales' && <SalesRecord key={'sales'} />}
+              {recordType === 'expenses' && <ExpensesRecord key={'expenses'} />}
+              {recordType !== 'sales' && recordType !== 'expenses' && <div key={'notFound'}>Not Found Table</div>}
               <Stack direction="row" display={'flex'} flexWrap={'wrap'} justifyContent={'center'} spacing={3} m={3}>
                 <Button variant="contained" color="error" onClick={AddRecord}>
                   Add New Record
