@@ -14,16 +14,6 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
-// const StyledSection = styled('div')(({ theme }) => ({
-//   width: '100%',
-//   maxWidth: 480,
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'center',
-//   boxShadow: theme.customShadows.card,
-//   backgroundColor: theme.palette.background.default,
-// }));
-
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 480,
   margin: 'auto',
@@ -44,8 +34,8 @@ export default function LoginPage() {
       <StyledRoot>
         <Container maxWidth="sm">
           <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Finance Dashboard
+            <Typography variant="h4" sx={{ mt: 3 }} gutterBottom>
+              BVL-ACADEMY
             </Typography>
 
             <LoginForm />

@@ -15,18 +15,20 @@ import Iconify from '../../../components/iconify';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [Mes, setMes] = useState(null);
   const ref = useRef(null);
 
   const FetchData = async (obj) => {
+    const moduleName = obj.username.split('@')[1].split('.')[0];
+    const Data = { module: moduleName, OBJ: obj };
     ref.current.continuousStart();
     ref.current.staticStart();
-    const result = await fetch(`${process.env.REACT_APP_URL}/Login`, {
+    const result = await fetch(`http://localhost:8080/AcademyLogin`, {
       method: 'POST',
-      body: JSON.stringify(obj),
+      body: JSON.stringify(Data),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -36,13 +38,15 @@ export default function LoginForm() {
         console.log(err);
         setMes(err);
       });
-
     if (result.length === 0) {
       ref.current.complete();
       alert('Unvalid User ');
     } else {
       ref.current.complete();
-      navigate('/dashboard/app');
+      // console.log(result);
+      let OBJ = { ModuleName: moduleName };
+      localStorage.setItem('Academy', JSON.stringify(OBJ));
+      Navigate('/dashboard/app');
     }
   };
 
@@ -59,6 +63,7 @@ export default function LoginForm() {
     validationSchema: SignUpSchema,
     onSubmit: (values) => {
       // console.log(JSON.stringify(values, null, 2));
+
       FetchData({ ...values });
     },
   });
