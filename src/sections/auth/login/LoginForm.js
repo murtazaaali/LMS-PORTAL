@@ -43,10 +43,20 @@ export default function LoginForm() {
       alert('Unvalid User ');
     } else {
       ref.current.complete();
-      // console.log(result);
-      let OBJ = { ModuleName: moduleName };
-      localStorage.setItem('Academy', JSON.stringify(OBJ));
-      Navigate('/dashboard/app');
+
+      if (moduleName === 'student' || moduleName === 'teacher') {
+        if (result[0].Status === 'Active') {
+          let OBJ = { ModuleName: moduleName };
+          localStorage.setItem('Academy', JSON.stringify(OBJ));
+          Navigate('/dashboard/app');
+        } else {
+          alert('Your ID is Correct But Your InActive Contact Admin for Activate ID');
+        }
+      } else {
+        let OBJ = { ModuleName: moduleName };
+        localStorage.setItem('Academy', JSON.stringify(OBJ));
+        Navigate('/dashboard/app');
+      }
     }
   };
 

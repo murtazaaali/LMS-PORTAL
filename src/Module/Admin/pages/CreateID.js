@@ -1,31 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 function CreateID() {
   const location = useLocation();
   const userData = location.state;
+  const userValues = userData.obj;
+  //   const UserType = userData[UserType];
   const [Mes, setMes] = useState([]);
-  //   const Naviagate = useNavigate();
-
-  useEffect(() => {
-    console.log(userData);
-  }, []);
 
   const GenerateID = () => {
-    let year = new Date().getFullYear().toString().slice(-2);
-    let ID = userData.Student_ID.split('_');
-    let userID = `F${year}-${ID[2]}@student.bvlacademy.com`;
-
+    let ID;
+    let year;
+    let userID;
+    let Name;
+    if (userData.UserType === 'Student') {
+      year = new Date().getFullYear().toString().slice(-2);
+      ID = userValues.Student_ID.split('_');
+      userID = `F${year}-${ID[2]}@student.bvlacademy.com`;
+    } else {
+      ID = userData.obj.Teacher_ID.split('-');
+      Name = userValues.TeacherName.toLowerCase().replace(/\s+/g, '');
+      userID = `${Name}${ID[1]}@teacher.bvlacademy.com`;
+    }
     return userID;
   };
   const UserID = GenerateID();
   const handleSubmit = async () => {
-    let obj = { username: UserID, password: 'student12345' };
-    console.log(obj);
+    let obj = {
+      username: UserID,
+      password: `${userData.UserType}12345`,
+      Status: 'Active',
+      Name: userValues.StudentName ? userValues.StudentName : userValues.TeacherName,
+    };
+    let Data = { obj, user: userData.UserType };
     let url = `http://localhost:8080/createUser`;
     let resp = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(obj),
+      body: JSON.stringify(Data),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -50,28 +61,28 @@ function CreateID() {
               <div className="row d-flex flex-wrap col-12 mt-2">
                 <div className="col-12 col-lg-6 mt-3 d-flex flex-wrap">
                   <div className="col-lg-4 col-12">
-                    <h6 className="h6 mt-2">Student ID</h6>
+                    <h6 className="h6 mt-2">User ID</h6>
                   </div>
                   <div className="col-lg-8 col-12">
                     <input
                       className="form-control h-100 shadow-sm"
                       type="text"
                       name="STD_ID"
-                      value={userData.Student_ID}
+                      value={userValues.Student_ID ? userValues.Student_ID : userValues.Teacher_ID}
                       readOnly
                     />
                   </div>
                 </div>
                 <div className="col-12 col-lg-6 mt-3 d-flex flex-wrap">
                   <div className="col-lg-4 col-12">
-                    <h6 className="h6 mt-2">Student Name</h6>
+                    <h6 className="h6 mt-2">User Name</h6>
                   </div>
                   <div className="col-lg-8 col-12">
                     <input
                       className="form-control h-100 shadow-sm"
                       type="text"
                       name="StudentName"
-                      value={userData.StudentName}
+                      value={userValues.StudentName ? userValues.StudentName : userValues.TeacherName}
                       readOnly
                     />
                   </div>
@@ -79,14 +90,14 @@ function CreateID() {
 
                 <div className="col-12 col-lg-6 mt-3 d-flex flex-wrap">
                   <div className="col-lg-4 col-12">
-                    <h6 className="h6 mt-2">Applied Course</h6>
+                    <h6 className="h6 mt-2">Course</h6>
                   </div>
                   <div className="col-lg-8 col-12">
                     <input
                       className="form-control h-100 shadow-sm"
                       type="text"
                       name="AppliedCourse"
-                      value={userData.AppliedCourse}
+                      value={userValues.AppliedCourse ? userValues.AppliedCourse : userValues.TeachCourse}
                       readOnly
                     />
                   </div>

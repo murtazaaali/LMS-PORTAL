@@ -25,7 +25,6 @@ import { InvoicesFunc } from './Module/Admin/pages/Invoices';
 import { CreateUser } from './Module/Admin/pages/CreateUser';
 import { ReportFunc } from './Module/Admin/pages/Reports';
 import { CreateID } from './Module/Admin/pages/CreateID';
-
 // Teacher Module Routes
 import TeacherDashboardLayout from './Module/Teacher/layouts/dashboard';
 import TeacherDashboardAppPage from './Module/Teacher/pages/DashboardAppPage';

@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import { Stack, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
-function ContactFunc() {
+function SalesRecord() {
   useEffect(() => {
     GETSalesData();
   }, []);
@@ -13,7 +13,7 @@ function ContactFunc() {
 
   const GETSalesData = async () => {
     ref.current.continuousStart();
-    const url = `http://localhost:8080/GetUserConact`;
+    const url = `${process.env.REACT_APP_URL}/GETSalesData`;
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -44,8 +44,8 @@ function ContactFunc() {
   return (
     <>
       <LoadingBar color="#f11946" ref={ref} />
-      <Typography variant="h6" align="left">
-        Teachers Conatct
+      <Typography variant="h6" align="start">
+        Sales Record
       </Typography>
 
       {/* Option Table */}
@@ -56,25 +56,23 @@ function ContactFunc() {
               <TableHead>
                 <TableRow>
                   <TableCell>Sr#.</TableCell>
-                  <TableCell align="right">TeacherName</TableCell>
-                  <TableCell align="right">Teacher_ID</TableCell>
-                  <TableCell align="right">TeachCourse</TableCell>
-                  <TableCell align="right">Contact</TableCell>
-                  <TableCell align="right">Email</TableCell>
-                  <TableCell align="right">Designation</TableCell>
+                  <TableCell align="right">Student_ID</TableCell>
+                  <TableCell align="right">Type</TableCell>
+                  <TableCell align="right">Amount</TableCell>
+                  <TableCell align="right">Date</TableCell>
+                  <TableCell align="right">SalesBy</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {FilterData.map((ele, index) => {
                   return (
                     <TableRow key={index}>
-                      <TableCell>{index}</TableCell>
-                      <TableCell align="right">{ele.TeacherName}</TableCell>
-                      <TableCell align="right">{ele.Teacher_ID}</TableCell>
-                      <TableCell align="right">{ele.TeachCourse}</TableCell>
-                      <TableCell align="right">{ele.Contact}</TableCell>
-                      <TableCell align="right">{ele.Email}</TableCell>
-                      <TableCell align="right">{ele.Designation}</TableCell>
+                      <TableCell>{index + 1}</TableCell>
+                      <TableCell align="right">{ele.Student_ID}</TableCell>
+                      <TableCell align="right">{ele.AmmountType}</TableCell>
+                      <TableCell align="right">{ele.paidamount}</TableCell>
+                      <TableCell align="right">{ele.Date}</TableCell>
+                      <TableCell align="right">{ele.DealBy}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -88,4 +86,4 @@ function ContactFunc() {
   );
 }
 
-export { ContactFunc };
+export { SalesRecord };

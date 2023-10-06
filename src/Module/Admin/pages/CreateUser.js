@@ -8,24 +8,19 @@ function CreateUser() {
   const [FilterData, setFilterData] = useState([]);
   const Navigate = useNavigate();
   const [UserType, setUserType] = useState('Student');
+  const [Loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     GetValue();
   }, [UserType]);
 
   const GetValue = async () => {
-    console.log(UserType);
+    // console.log(UserType);
     let obj = { UserType };
     let url = `http://localhost:8080/GetAdmissionUserList`;
-    // fetch(url, {
-    //   method: 'POST',
-    //   body: JSON.stringify(obj),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-
     try {
-      const response = await fetch(url, {
+      let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
@@ -33,13 +28,15 @@ function CreateUser() {
         },
       });
       if (!response.ok) {
+        setLoading(false);
         setMes('Netwrok Error');
       }
 
       const data = await response.json();
+      setLoading(false);
       setResult(data);
       setFilterData(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       setMes(err.message);
     }
@@ -47,10 +44,10 @@ function CreateUser() {
 
   const SearchUser = (e) => {
     let searchText = e.target.value;
+    let Name = `${UserType}Name`;
     const filteredData = FilterData.filter((ele) => {
-      return ele.StudentName.toLowerCase().includes(searchText.toLowerCase());
+      return ele[Name].toLowerCase().includes(searchText.toLowerCase());
     });
-
     setFilterData(filteredData);
     if (searchText === '') {
       setFilterData(Result);
@@ -61,15 +58,12 @@ function CreateUser() {
   };
 
   let CreateID = (obj) => {
-    Navigate('/dashboard/createid', { state: obj });
+    let Data = { obj, UserType };
+    Navigate('/dashboard/createid', { state: Data });
   };
 
   return (
     <>
-      Create CreateUser
-      <Button variant="contained" onClick={GetValue}>
-        Click
-      </Button>
       <div className="d-flex justify-content-center flex-wrap">
         <input
           className="form-control mr-sm-2 w-50"
@@ -106,7 +100,7 @@ function CreateUser() {
           </thead>
           {Mes && Mes}
           <tbody className="border-dark" key={'tbody'}>
-            {FilterData ? (
+            {!Loading ? (
               FilterData.map((ele) => {
                 return (
                   <React.Fragment key={ele.Student_ID}>
@@ -129,7 +123,7 @@ function CreateUser() {
                 );
               })
             ) : (
-              <Box>Users Not Found</Box>
+              <Box>Data is Loading</Box>
             )}
           </tbody>
         </table>
