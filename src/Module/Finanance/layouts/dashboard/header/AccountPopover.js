@@ -39,6 +39,7 @@ export default function AccountPopover() {
 
   const handleLogout = () => {
     Navigate('/login');
+    localStorage.removeItem('Academy');
   };
   return (
     <>

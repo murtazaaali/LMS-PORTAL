@@ -15,7 +15,8 @@ function ManageTeam() {
   }, [UserType]);
 
   const GetValue = async () => {
-    console.log(UserType);
+    setMes('');
+    // console.log(UserType);
     let obj = { UserType };
     let url = `http://localhost:8080/GetCreatedUsersList`;
     try {
@@ -35,7 +36,7 @@ function ManageTeam() {
       setLoading(false);
       setResult(data);
       setFilterData(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       setMes(err.message);
     }
@@ -59,7 +60,7 @@ function ManageTeam() {
     setStatus(e.target.value);
   };
   const handleUpdate = async (Username) => {
-    console.log(`Usename : ${Username} & Status is ${Status}`);
+    // console.log(`Usename : ${Username} & Status is ${Status}`);
     let url = `http://localhost:8080/UpdateCreatedUsers`;
 
     let obj = { UserType, Status, Username };
@@ -72,7 +73,7 @@ function ManageTeam() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setMes(res.message);
       })
       .catch((err) => setMes(err.message));

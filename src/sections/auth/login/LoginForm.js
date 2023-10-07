@@ -40,7 +40,7 @@ export default function LoginForm() {
       });
     if (result.length === 0) {
       ref.current.complete();
-      alert('Unvalid User ');
+      alert('Invalid User ');
     } else {
       ref.current.complete();
 

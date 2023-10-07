@@ -40,6 +40,17 @@ const navConfig = [
     icon: <AssessmentIcon />,
   },
   {
+    title: 'Courses',
+    path: '/dashboard/Courses',
+    icon: <ContactPageIcon />,
+  },
+  {
+    title: 'Enrollment',
+    path: '/dashboard/enrollment',
+    icon: <ContactPageIcon />,
+  },
+
+  {
     title: 'Conatct',
     path: '/dashboard/conatct',
     icon: <ContactPageIcon />,

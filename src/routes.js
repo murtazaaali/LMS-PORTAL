@@ -25,6 +25,10 @@ import { InvoicesFunc } from './Module/Admin/pages/Invoices';
 import { CreateUser } from './Module/Admin/pages/CreateUser';
 import { ReportFunc } from './Module/Admin/pages/Reports';
 import { CreateID } from './Module/Admin/pages/CreateID';
+import { Courses } from './Module/Admin/pages/Courses';
+import { AssignCourses } from './Module/Admin/pages/AssignCourses';
+import { EnrollmentPage } from './Module/Admin/pages/Enrollment';
+
 // Teacher Module Routes
 import TeacherDashboardLayout from './Module/Teacher/layouts/dashboard';
 import TeacherDashboardAppPage from './Module/Teacher/pages/DashboardAppPage';
@@ -90,6 +94,9 @@ export default function Router() {
     { path: 'reports', element: <ReportFunc /> },
     { path: 'invocies', element: <InvoicesFunc /> },
     { path: 'createid', element: <CreateID /> },
+    { path: 'courses', element: <Courses /> },
+    { path: 'assign', element: <AssignCourses /> },
+    { path: 'enrollment', element: <EnrollmentPage /> },
   ];
 
   const studentRoutes = [
