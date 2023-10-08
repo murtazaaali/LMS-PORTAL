@@ -16,9 +16,9 @@ function AddRecord() {
   };
 
   const SubmitRecord = async (obj) => {
-    console.log('working .. )');
+    // console.log('working .. )');
     let Data = { ...obj };
-    console.log(Data);
+    // console.log(Data);
 
     const url = `${process.env.REACT_APP_URL}/AddRecord`;
     // const result =
@@ -30,8 +30,8 @@ function AddRecord() {
       },
     })
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // console.log(res);
 
         setMes('Record Successfuly inserted');
       })

@@ -29,7 +29,7 @@ function Record() {
       {recordType && (
         <Container>
           <Grid container>
-            <Grid item>
+            <Grid item sm={12}>
               {/* Option Button */}
               <Typography variant="h4" align="left">
                 Record Page
