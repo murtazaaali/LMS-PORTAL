@@ -13,8 +13,8 @@ const navConfig = [
   },
 
   {
-    title: 'Fees',
-    path: '/dashboard/fee',
+    title: 'Balances',
+    path: '/dashboard/balances',
     icon: icon('ic_analytics'),
   },
 ];

@@ -23,11 +23,11 @@ import { ManageTeam } from './Module/Admin/pages/ManageTeam';
 import { ContactFunc } from './Module/Admin/pages/Contact';
 import { InvoicesFunc } from './Module/Admin/pages/Invoices';
 import { CreateUser } from './Module/Admin/pages/CreateUser';
-import { ReportFunc } from './Module/Admin/pages/Reports';
 import { CreateID } from './Module/Admin/pages/CreateID';
 import { Courses } from './Module/Admin/pages/Courses';
 import { AssignCourses } from './Module/Admin/pages/AssignCourses';
 import { EnrollmentPage } from './Module/Admin/pages/Enrollment';
+import { AddProgram } from './Module/Admin/pages/AddPrograms';
 
 // Teacher Module Routes
 import TeacherDashboardLayout from './Module/Teacher/layouts/dashboard';
@@ -57,7 +57,9 @@ import { ContractPage } from './Module/HumanResources/pages/Contracts';
 // Recovery Module Pages
 import RecoveryDashboardLayout from './Module/Recovery/layouts/dashboard';
 import RecoveryDashboardAppPage from './Module/Recovery/pages/DashboardAppPage';
-import { FeePage } from './Module/Recovery/pages/Fee';
+import { BalancesPage } from './Module/Recovery/pages/Balances';
+// import { FeePage } from './Module/Recovery/pages/Fee';
+
 
 // ----------------------------------------------------------------------
 
@@ -91,11 +93,11 @@ export default function Router() {
     { path: 'conatct', element: <ContactFunc /> },
     { path: 'manageteam', element: <ManageTeam /> },
     { path: 'createuser', element: <CreateUser /> },
-    { path: 'reports', element: <ReportFunc /> },
     { path: 'invocies', element: <InvoicesFunc /> },
     { path: 'createid', element: <CreateID /> },
     { path: 'courses', element: <Courses /> },
     { path: 'assign', element: <AssignCourses /> },
+    { path: 'program', element: <AddProgram /> },
     { path: 'enrollment', element: <EnrollmentPage /> },
   ];
 
@@ -119,7 +121,8 @@ export default function Router() {
   const recoveryRoutes = [
     { element: <Navigate to="/dashboard/app" />, index: true },
     { path: 'app', element: <RecoveryDashboardAppPage /> },
-    { path: 'fee', element: <FeePage /> },
+    { path: 'balances', element: <BalancesPage /> },
+    
   ];
 
   const undefinedRoutes = [

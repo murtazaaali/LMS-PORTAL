@@ -1,68 +1,73 @@
-import React from 'react';
-import {
-  Container,
-  Typography,
-  Table,
-  TableContainer,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
-} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
+
 
 function CoursesPage() {
-  // Sample data for teachers and courses
-  const initialData = [
-    {
-      teacherName: 'John Doe',
-      courseAllotted: 'Mathematics',
-      numClasses: 20,
-      totalStudents: 500,
-    },
-    {
-      teacherName: 'Jane Smith',
-      courseAllotted: 'Science',
-      numClasses: 15,
-      totalStudents: 450,
-    },
-    // Add more data as needed
-  ];
+  const data = JSON.parse(localStorage.getItem('Academy'))
+  const TeacherID = data.Username.split('@')[0];
+  const [Mes, setMes] = useState('')
+  const [Result, setResult] = useState([])
+  const Navigate = useNavigate()
 
-  // const [courseData, setCourseData] = useState(initialData);
+  useEffect(() => {
+    GetClasses()
+  }, [])
+
+  
+  let GetClasses = async() => {
+
+    setMes('')
+    const url = `http://localhost:8080/GETTeacherClasses`;
+    let obj = {TeacherID}
+    let response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+   if(!response.ok){
+    setMes('Some Issue Found')
+   }else{
+    let data = await response.json()
+    // console.log(data);
+    setResult(data)
+   }
+  }
+
+  const handleAttandance = (classid) => {
+    // console.log(`class id  recoeved is ${classid}`);
+    Navigate('/dashboard/attendance', { state:classid})
+ }
+  
+ const handleMarks = (classid) => {
+  Navigate('/dashboard/marks', { state:classid})
+}
 
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Course Page
-      </Typography>
 
-      {/* Display course data in a table */}
-      {initialData.length > 0 && (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Teacher Name</TableCell>
-                <TableCell>Course Allotted</TableCell>
-                <TableCell>Number of Classes</TableCell>
-                <TableCell>Total Number of Students</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {initialData.map((course, index) => (
-                <TableRow key={index}>
-                  <TableCell>{course.teacherName}</TableCell>
-                  <TableCell>{course.courseAllotted}</TableCell>
-                  <TableCell>{course.numClasses}</TableCell>
-                  <TableCell>{course.totalStudents}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-    </Container>
+    <>
+      <div className='d-flex flex-wrap p-3'>
+        {
+          Result && Result.map((ele) => {
+                return(
+                  <div className="card shadow-sm m-3" style={{width: '18rem'}}>
+  <div className="card-body">
+    <h5 className="card-title">{ele.CourseName}</h5>
+    <p className="card-text">Course Id is : {ele.CourseID}</p>
+    <div className='d-flex flex-wrap justify-content-start'>
+    <button className='btn btn-info m-2' onClick={() => handleAttandance(ele.CourseID)}>Attandance</button>
+    <button className='btn btn-danger m-2' onClick={() => handleMarks(ele.CourseID)}>Marks</button>
+    </div>
+  </div>
+</div>
+                )
+          })
+        }
+     
+      {Mes && <div className='d-flex flex-wrap justify-content-center'>{Mes}</div>}
+      </div>
+    </>
   );
 }
 

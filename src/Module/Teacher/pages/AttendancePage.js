@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import {
   Container,
   Typography,
   Grid,
-  Select,
-  MenuItem,
   Table,
   TableHead,
   TableRow,
@@ -13,90 +13,107 @@ import {
   Button,
 } from '@mui/material';
 
-const studentsData = [
-  {
-    RollNo: '01',
-    Name: 'Ahmad',
-    AttendancePer: 80,
-    Status: 'Present',
-    Issue: 'NO',
-  },
-  // Add more student data as needed
-];
+
 
 const AttendancePage = () => {
-  const [classDetail, setClassDetail] = useState({
-    Degree: '',
-    ClassSection: '',
-    AttendanceDate: '',
-  });
+ 
+  const data = JSON.parse(localStorage.getItem('Academy'))
+  const TeacherID = data.Username.split('@')[0];
+  const location = useLocation()
+  const CourseID = location.state
+  const [Mes, setMes] = useState('')
+  const [Result, setResult] = useState([])
+  const [AttandanceDetails, setAttandanceDetails] = useState({})
+  const [AttandanceDate, setAttandanceDate] = useState('')
 
-  const [attendanceDetail, setAttendanceDetail] = useState({});
-
-  const handleClassDetailChange = (e) => {
-    setClassDetail({
-      ...classDetail,
-      [e.target.name]: e.target.value,
+  useEffect(() => {
+    GetStudents()
+    
+  }, [])
+  let GetStudents = async() => {
+    // console.log(location.state);
+    const url = `http://localhost:8080/GETCourseStudents`;
+    let obj = {TeacherID, CourseID}
+    let response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-  };
+   if(!response.ok){
+    setMes('Some Issue Found')
+   }else{
+    let data = await response.json()
+    
+    // console.log(data);
 
-  const handleStudentAttendanceChange = (e, rollNo) => {
-    setAttendanceDetail({
-      ...attendanceDetail,
-      [rollNo]: e.target.value,
+    let students = data[0].Students
+    setResult(students)
+
+    // console.log(students);
+    
+    // Set Pre Values
+
+    students.forEach((students) => {
+      AttandanceDetails[students.studentID] = 'Present';
     });
-  };
 
-  const handleSubmit = () => {
-    const classInfo = {
-      ...classDetail,
-      StudentAttendanceDetail: attendanceDetail,
-    };
+   }
+  }
+  
 
-    console.log(classInfo);
-  };
+  let InsertAttandance = async() => {
+    if(AttandanceDate === '' && !AttandanceDate){
+      alert('Kindly select Date')
+    }else{
+      let Attandancedata = {...AttandanceDetails, AttandanceDate}
+      let data = {Attandancedata, CourseID}
+      // console.log(data);
+      const url = `http://localhost:8080/AddAttandance`;
+      let response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+     if(!response.ok){
+      // setMes('Some Issue Found')
+     }else{
+      let data = await response.json()
+      console.log(data);
+      // setResult(data)
+      setMes(data.message)
+     }
+    }
+
+   
+     
+  }
 
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Attendance Page
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <Select
-            fullWidth
-            name="Degree"
-            value={classDetail.Degree}
-            onChange={handleClassDetailChange}
-            variant="outlined"
-            sx={{ mb: 2 }}
-          >
-            <MenuItem value="">-- Course --</MenuItem>
-            <MenuItem value="BSCS">BSCS</MenuItem>
-            <MenuItem value="BSIT">BSIT</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Select
-            fullWidth
-            name="ClassSection"
-            value={classDetail.ClassSection}
-            onChange={handleClassDetailChange}
-            variant="outlined"
-            sx={{ mb: 2 }}
-          >
-            <MenuItem value="">-- Section --</MenuItem>
-            <MenuItem value="A">A</MenuItem>
-            <MenuItem value="B">B</MenuItem>
-          </Select>
-        </Grid>
+   
+    <>
+    {CourseID ?  (
+
+      <>
+
+<Container maxWidth="xl">
+  <Typography variant="h4" sx={{ mb: 5 }}>
+  Attendance Page
+ </Typography>
+   <Grid container spacing={3}>
+     <Grid item xs={12} md={4} style={{display:'flex'}}>
+     <Typography variant="h6" sx={{ mb: 5, pr:2 }}>
+  Attendance Date
+ </Typography>
         <Grid item xs={12} md={4}>
           <input
             type="date"
             name="AttendanceDate"
-            value={classDetail.AttendanceDate}
-            onChange={handleClassDetailChange}
             className="form-control shadow-sm"
+            onChange={(e) => setAttandanceDate(e.target.value)}
           />
         </Grid>
       </Grid>
@@ -105,40 +122,43 @@ const AttendancePage = () => {
           <TableRow>
             <TableCell>Roll No</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Attendance %</TableCell>
-            <TableCell>Issue</TableCell>
             <TableCell>Option</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {studentsData.map((student) => (
-            <TableRow key={student.RollNo}>
-              <TableCell>{student.RollNo}</TableCell>
-              <TableCell>{student.Name}</TableCell>
-              <TableCell>{student.AttendancePer}</TableCell>
-              <TableCell>{student.Issue}</TableCell>
+          {Result && Result.map((ele) =>  
+            {return(
+              
+              <>
+                  {/* {ele.studentName} */}
+                  <TableRow key={ele.studentID}>
+              <TableCell>{ele.studentID}</TableCell>
+              <TableCell>{ele.studentName}</TableCell>
               <TableCell>
-                <Select
-                  name={student.RollNo}
-                  value={attendanceDetail[student.RollNo] || ''}
-                  onChange={(e) => handleStudentAttendanceChange(e, student.RollNo)}
-                  variant="outlined"
-                >
-                  <MenuItem value="">-Select Status-</MenuItem>
-                  <MenuItem value="Present">Present</MenuItem>
-                  <MenuItem value="Absent">Absent</MenuItem>
-                </Select>
+                <select className="form-select" name={ele.studentID}  aria-label="Default select example" onChange={(e) => setAttandanceDetails({...AttandanceDetails, [e.target.name] : e.target.value})}>         
+  <option value="Present" >Present</option>
+  <option value="Absend">Absent</option>
+</select>
+                
               </TableCell>
             </TableRow>
-          ))}
+              </>
+            )}
+          )}
         </TableBody>
       </Table>
+      </Grid>
       <div className="d-flex justify-content-center mt-3">
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button variant="contained" color="primary" onClick={InsertAttandance}>
           Submit
         </Button>
       </div>
+      {Mes && <div>{Mes}</div>}
     </Container>
+      </>
+    ) : 'Course ID  not found Page kindly select course from Courses'}
+    
+    </>
   );
 };
 

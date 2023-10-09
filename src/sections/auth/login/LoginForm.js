@@ -46,14 +46,15 @@ export default function LoginForm() {
 
       if (moduleName === 'student' || moduleName === 'teacher') {
         if (result[0].Status === 'Active') {
-          let OBJ = { ModuleName: moduleName };
+          let OBJ = { ModuleName: moduleName, Username : obj.username };
           localStorage.setItem('Academy', JSON.stringify(OBJ));
           Navigate('/dashboard/app');
         } else {
           alert('Your ID is Correct But Your InActive Contact Admin for Activate ID');
         }
       } else {
-        let OBJ = { ModuleName: moduleName };
+     
+        let OBJ = { ModuleName: moduleName, Username : obj.username};
         localStorage.setItem('Academy', JSON.stringify(OBJ));
         Navigate('/dashboard/app');
       }
