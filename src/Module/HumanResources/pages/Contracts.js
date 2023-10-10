@@ -15,7 +15,8 @@ function ContractPage() {
   let InsertContract = async (obj) => {
     setMes('');
     try {
-      let url = 'http://localhost:8080/RegisterContract';
+      // let url = 'http://localhost:8080/RegisterContract';
+      let url = `${process.env.REACT_APP_URL}/RegisterContract`;
       let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({ ...obj }),

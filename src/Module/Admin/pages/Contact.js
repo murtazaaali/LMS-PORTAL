@@ -12,8 +12,10 @@ function ContactFunc() {
   const ref = useRef(null);
 
   const GETSalesData = async () => {
+    setIssue('')
     ref.current.continuousStart();
-    const url = `http://localhost:8080/GetUserConact`;
+    // const url = `http://localhost:8080/GetUserConact`;
+    let url = `${process.env.REACT_APP_URL}/GetUserConact`;
     try {
       const response = await fetch(url, {
         method: 'GET',

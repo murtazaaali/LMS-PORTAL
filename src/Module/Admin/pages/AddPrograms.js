@@ -11,7 +11,8 @@ function AddProgram() {
  
   let handleCourse = async(obj) => {
     setMes('')
-    const url = `http://localhost:8080/AddProgram`;
+    // const url = `http://localhost:8080/AddProgram`;
+    const url = `${process.env.REACT_APP_URL}/AddProgram`;
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(obj),
@@ -22,18 +23,11 @@ function AddProgram() {
 
     if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         setMes(data.message);
       } else {
-        // console.error('HTTP error:', response.status);
         setMes('HTTP Error :', response.status);
       }
     } 
-    // catch (error) {
-    //   ref.current.complete();
-    //   console.error('Error:', error);
-    //   setMes(`Some Technical Issue Found ... )`);
-    // }
    
   
 
@@ -82,33 +76,6 @@ function AddProgram() {
                       <div className="text-danger">{formik.errors.CourseName}</div>
                     ) : null}
                   </div>
-                  {/* <div className="col-12 col-lg-6 mt-1 d-flex flex-wrap">
-                    <div className="col-lg-4 col-12">
-                      <h6 className="h6 mt-2">Course ID</h6>
-                    </div>
-                    <div className="col-lg-8 col-12">
-                      <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        name="Class"
-                        onChange={formik.handleChange}
-                        value={formik.values.Class}
-                      >
-                        <option selected>Open this select menu</option>
-                        {classArray.map((ele) => {
-                          return (
-                            <>
-                              <option value={`C${ele}`}>{`Class ${ele}`}</option>
-                            </>
-                          );
-                        })}
-                        <option value={'Courses'}>Courses</option>
-                      </select>
-                    </div>
-                    {formik.touched.Class && formik.errors.Class ? (
-                      <div className="text-danger">{formik.errors.Class}</div>
-                    ) : null}
-                  </div> */}
                 </div>
               </div>
 

@@ -30,7 +30,8 @@ function TranscriptPage() {
   let GetStudents = async() => {
     setMes('')
     // console.log(location.state);
-    const url = `http://localhost:8080/GETStudentMarks`;
+    // const url = `http://localhost:8080/GETStudentMarks`;
+    let url = `${process.env.REACT_APP_URL}/GETStudentMarks`;
     let obj = {StudentID, CourseID}
     let response = await fetch(url, {
       method: 'POST',

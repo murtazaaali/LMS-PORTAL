@@ -18,7 +18,8 @@ function ManageTeam() {
     setMes('');
     // console.log(UserType);
     let obj = { UserType };
-    let url = `http://localhost:8080/GetCreatedUsersList`;
+    // let url = `http://localhost:8080/GetCreatedUsersList`;
+    let url = `${process.env.REACT_APP_URL}/GetCreatedUsersList`;
     try {
       let response = await fetch(url, {
         method: 'POST',
@@ -61,8 +62,8 @@ function ManageTeam() {
   };
   const handleUpdate = async (Username) => {
     // console.log(`Usename : ${Username} & Status is ${Status}`);
-    let url = `http://localhost:8080/UpdateCreatedUsers`;
-
+    // let url = `http://localhost:8080/UpdateCreatedUsers`;
+    let url = `${process.env.REACT_APP_URL}/UpdateCreatedUsers`;
     let obj = { UserType, Status, Username };
     await fetch(url, {
       method: 'POST',

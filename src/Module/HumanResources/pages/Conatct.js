@@ -16,7 +16,8 @@ function StaffContactPage() {
     setMes('');
     console.log(obj);
     try {
-      let url = 'http://localhost:8080/RegisterContactInfo';
+      // let url = 'http://localhost:8080/RegisterContactInfo';
+      let url = `${process.env.REACT_APP_URL}/RegisterContactInfo`;
       let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({ ...obj }),

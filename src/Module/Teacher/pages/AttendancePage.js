@@ -32,7 +32,8 @@ const AttendancePage = () => {
   }, [])
   let GetStudents = async() => {
     // console.log(location.state);
-    const url = `http://localhost:8080/GETCourseStudents`;
+    // const url = `http://localhost:8080/GETCourseStudents`;
+    let url = `${process.env.REACT_APP_URL}/GETCourseStudents`;
     let obj = {TeacherID, CourseID}
     let response = await fetch(url, {
       method: 'POST',

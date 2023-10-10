@@ -16,7 +16,8 @@ function EnrollmentPage() {
     setMes('');
     // console.log(UserType);
     let obj = { UserType: 'Student' };
-    let url = `http://localhost:8080/GetCreatedUsersList`;
+    // let url = `http://localhost:8080/GetCreatedUsersList`;
+    let url = `${process.env.REACT_APP_URL}/GetCreatedUsersList`;
     try {
       let response = await fetch(url, {
         method: 'POST',
@@ -38,7 +39,8 @@ function EnrollmentPage() {
   const FetchCourses = async () => {
     setMes('');
     try {
-      let url = 'http://localhost:8080/GetCourses';
+      // let url = 'http://localhost:8080/GetCourses';
+      let url = `${process.env.REACT_APP_URL}/GetCourses`;
       let response = await fetch(url, {
         method: 'GET',
       });
@@ -71,7 +73,8 @@ function EnrollmentPage() {
       console.log(obj);
 
       try {
-        let url = 'http://localhost:8080/EnrolledStudent';
+        // let url = 'http://localhost:8080/EnrolledStudent';
+        let url = `${process.env.REACT_APP_URL}/EnrolledStudent`;
         let response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(obj),

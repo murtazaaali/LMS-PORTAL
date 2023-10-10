@@ -20,7 +20,7 @@ function AddRecord() {
     let Data = { ...obj };
     // console.log(Data);
 
-    const url = `${process.env.REACT_APP_URL}/AddRecord`;
+    let url = `${process.env.REACT_APP_URL}/AddRecord`;
     // const result =
     await fetch(url, {
       method: 'POST',

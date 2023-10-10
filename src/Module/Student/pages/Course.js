@@ -19,7 +19,8 @@ function CoursePage() {
   let GetClasses = async() => {
 
     // setMes('')
-    const url = `http://localhost:8080/GETStudentClass`;
+    // const url = `http://localhost:8080/GETStudentClass`;
+    let url = `${process.env.REACT_APP_URL}/GETStudentClass`;
     let obj = {StudentID}
     let response = await fetch(url, {
       method: 'POST',

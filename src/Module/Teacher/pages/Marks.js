@@ -68,7 +68,8 @@ function MarksPage() {
       let Marks = {...MarksDetails}
       let data = {Marks, CourseID}
       // console.log(data);
-      const url = `http://localhost:8080/AddMarks`;
+      // const url = `http://localhost:8080/AddMarks`;
+      let url = `${process.env.REACT_APP_URL}/AddMarks`;
       let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),

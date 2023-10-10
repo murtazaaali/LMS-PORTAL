@@ -25,7 +25,8 @@ function Courses() {
 
   const GETProgramList = async () => {
     setMes('');
-    let url = `http://localhost:8080/GETProgramList`;
+    // let url = `http://localhost:8080/GETProgramList`;
+    let url = `${process.env.REACT_APP_URL}/GETProgramList`;
     try {
       let response = await fetch(url, {
         method: 'GET'
@@ -52,7 +53,8 @@ function Courses() {
     let Data = {CourseName : Course, CourseID,Teacher: 'TOA', Students : [], Attandance : [], Marks : []}
 
     try {
-      const url = `http://localhost:8080/RegisterCourse`;
+      // const url = `http://localhost:8080/RegisterCourse`;
+      let url = `${process.env.REACT_APP_URL}/RegisterCourse`;
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(Data),
@@ -76,28 +78,7 @@ function Courses() {
   }
   
     
-    // try {
-    //   const url = `http://localhost:8080/RegisterCourse`;
-    //   const response = await fetch(url, {
-    //     method: 'POST',
-    //     body: JSON.stringify(Data),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   });
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     // console.log(data);
-    //     setMes(data.message);
-    //   } else {
-    //     // console.error('HTTP error:', response.status);
-    //     setMes('HTTP Error :', response.status);
-    //   }
-    // } catch (error) {
-    //   ref.current.complete();
-    //   console.error('Error:', error);
-    //   setMes(`Some Technical Issue Found ... )`);
-    // }
+
   };
 
   

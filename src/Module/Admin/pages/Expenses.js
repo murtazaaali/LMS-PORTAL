@@ -8,9 +8,10 @@ function ExpensesRecord() {
   const ref = useRef(null);
 
   const GetExpensesRecord = async () => {
+    setIssue('')
     ref.current.continuousStart();
     let obj = { Type: 'Expenses' };
-    const url = `${process.env.REACT_APP_URL}/GETExpensesData`;
+    let url = `${process.env.REACT_APP_URL}/GETExpensesData`;
     try {
       const response = await fetch(url, {
         method: 'POST',

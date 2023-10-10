@@ -33,7 +33,7 @@ function StudentAdmission() {
     };
     console.log(addData);
     // console.log(obj);
-    const url = `${process.env.REACT_APP_URL}/AdmissionStudent`;
+    let url = `${process.env.REACT_APP_URL}/AdmissionStudent`;
     await fetch(url, {
       method: 'POST',
       body: JSON.stringify(addData),

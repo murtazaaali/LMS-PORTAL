@@ -16,9 +16,11 @@ function CreateUser() {
   }, [UserType]);
 
   const GetValue = async () => {
+    setMes('')
     // console.log(UserType);
     let obj = { UserType };
-    let url = `http://localhost:8080/GetAdmissionUserList`;
+    // let url = `http://localhost:8080/GetAdmissionUserList`;
+    let url = `${process.env.REACT_APP_URL}/GetAdmissionUserList`;
     try {
       let response = await fetch(url, {
         method: 'POST',

@@ -33,7 +33,8 @@ function AttandancePage() {
   let GetStudents = async() => {
     setMes('')
     // console.log(location.state);
-    const url = `http://localhost:8080/GETStudentAttandance`;
+    // const url = `http://localhost:8080/GETStudentAttandance`;
+    let url = `${process.env.REACT_APP_URL}/GETStudentAttandance`;
     let obj = {StudentID, CourseID}
     let response = await fetch(url, {
       method: 'POST',

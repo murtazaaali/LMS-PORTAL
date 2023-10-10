@@ -26,6 +26,7 @@ function CreateID() {
   };
   const UserID = GenerateID();
   const handleSubmit = async () => {
+    setMes('')
     let obj = {
       username: UserID,
       password: `${userData.UserType}12345`,
@@ -33,7 +34,8 @@ function CreateID() {
       Name: userValues.StudentName ? userValues.StudentName : userValues.TeacherName,
     };
     let Data = { obj, user: userData.UserType };
-    let url = `http://localhost:8080/createUser`;
+    // let url = `http://localhost:8080/createUser`;
+    let url = `${process.env.REACT_APP_URL}/createUser`;
     let resp = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(Data),

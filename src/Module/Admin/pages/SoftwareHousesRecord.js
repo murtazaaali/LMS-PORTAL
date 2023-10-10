@@ -13,8 +13,8 @@ function SoftwareHousesRecord() {
 
   const GETSalesData = async () => {
     ref.current.continuousStart();
-    const url = `http://localhost:8080/GETSoftwareHouseRecord`;
-
+    // let url = `http://localhost:8080/GETSoftwareHouseRecord`;
+    let url = `${process.env.REACT_APP_URL}/GETSoftwareHouseRecord`;
     try {
       const response = await fetch(url, {
         method: 'GET',

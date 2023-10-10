@@ -13,7 +13,7 @@ function SalesRecord() {
 
   const GETSalesData = async () => {
     ref.current.continuousStart();
-    const url = `${process.env.REACT_APP_URL}/GETSalesData`;
+    let url = `${process.env.REACT_APP_URL}/GETSalesData`;
     try {
       const response = await fetch(url, {
         method: 'GET',
