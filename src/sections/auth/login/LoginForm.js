@@ -26,8 +26,7 @@ export default function LoginForm() {
     const Data = { module: moduleName, OBJ: obj };
     ref.current.continuousStart();
     ref.current.staticStart();
-    // let url = `https://bvl-academy-9fb641fe439b.herokuapp.com/AcademyLogin`;
-    // https://bvlacadamy-c5b674ae4875.herokuapp.com/
+
     let url = `${process.env.REACT_APP_URL}/AcademyLogin`;
     const result = await fetch(url, {
       method: 'POST',
