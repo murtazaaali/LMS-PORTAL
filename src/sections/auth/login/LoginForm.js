@@ -26,8 +26,9 @@ export default function LoginForm() {
     const Data = { module: moduleName, OBJ: obj };
     ref.current.continuousStart();
     ref.current.staticStart();
-    let url = `https://bvl-academy-9fb641fe439b.herokuapp.com/AcademyLogin`
-    // let url = `${process.env.REACT_APP_URL}/AcademyLogin`;
+    // let url = `https://bvl-academy-9fb641fe439b.herokuapp.com/AcademyLogin`;
+    // https://bvlacadamy-c5b674ae4875.herokuapp.com/
+    let url = `${process.env.REACT_APP_URL}/AcademyLogin`;
     const result = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(Data),
@@ -48,15 +49,14 @@ export default function LoginForm() {
 
       if (moduleName === 'student' || moduleName === 'teacher') {
         if (result[0].Status === 'Active') {
-          let OBJ = { ModuleName: moduleName, Username : obj.username };
+          let OBJ = { ModuleName: moduleName, Username: obj.username };
           localStorage.setItem('Academy', JSON.stringify(OBJ));
           Navigate('/dashboard/app');
         } else {
           alert('Your ID is Correct But Your InActive Contact Admin for Activate ID');
         }
       } else {
-     
-        let OBJ = { ModuleName: moduleName, Username : obj.username};
+        let OBJ = { ModuleName: moduleName, Username: obj.username };
         localStorage.setItem('Academy', JSON.stringify(OBJ));
         Navigate('/dashboard/app');
       }
