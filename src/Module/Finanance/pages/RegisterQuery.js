@@ -15,8 +15,8 @@ function RegisterQuery() {
   }, []);
 
   const GETID = async () => {
-    // const url = `${process.env.REACT_APP_URL}/QueryRegister`;
-    const url = `http://localhost:8080/QueryRegister`;
+    const url = `${process.env.REACT_APP_URL}/QueryRegister`;
+    // const url = `http://localhost:8080/QueryRegister`;
     await fetch(url, {
       method: 'GET',
     })

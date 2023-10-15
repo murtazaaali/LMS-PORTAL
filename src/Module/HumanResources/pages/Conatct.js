@@ -6,7 +6,7 @@ const ContactValidation = Yup.object({
   Name: Yup.string().required('Name is Required'),
   Designation: Yup.string().required('Designation is Required'),
   Contact: Yup.number().required('Contact Number is Required'),
-  Email: Yup.string().email('invalid input').required('Email is Required')
+  Email: Yup.string().email('invalid input').required('Email is Required'),
 });
 
 function StaffContactPage() {
@@ -17,7 +17,7 @@ function StaffContactPage() {
     console.log(obj);
     try {
       // let url = 'http://localhost:8080/RegisterContactInfo';
-      let url = `${process.env.REACT_APP_URL}/RegisterContactInfo`;
+      const url = `${process.env.REACT_APP_URL}/RegisterContactInfo`;
       let response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({ ...obj }),
@@ -35,14 +35,13 @@ function StaffContactPage() {
       // console.log(`Error Found `);
       setMes('Http Error ..');
     }
-
   };
 
   const RegisterContactValue = {
-    Name:'',
-  Designation:'',
-  Contact:'',
-  Email:'',
+    Name: '',
+    Designation: '',
+    Contact: '',
+    Email: '',
   };
 
   const formik = useFormik({
@@ -149,7 +148,7 @@ function StaffContactPage() {
         </div>
       </form>
     </div>
-    )
+  );
 }
 
 export { StaffContactPage };

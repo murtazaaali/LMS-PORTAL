@@ -38,7 +38,7 @@ export default function LoginForm() {
 
   const handleSubmit = async () => {
     console.log(Login);
-    const result = await fetch('http://localhost:8080/Login', {
+    const result = await fetch(`${process.env.REACT_APP_URL}Login`, {
       method: 'POST',
       body: JSON.stringify(Login),
       headers: {
