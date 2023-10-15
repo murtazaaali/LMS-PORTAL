@@ -1,16 +1,33 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
-import { Typography, Stack, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import {
+  Typography,
+  Stack,
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Button,
+} from '@mui/material';
 
 function ExpensesRecord() {
   const [FilterData, setFilterData] = useState([]);
   const [Issue, setIssue] = useState(null);
+  const Navigate = useNavigate();
   const ref = useRef(null);
 
+  useEffect(() => {
+    GetExpensesRecord();
+  }, []);
+
   const GetExpensesRecord = async () => {
+    setIssue('');
     ref.current.continuousStart();
     let obj = { Type: 'Expenses' };
-    const url = `${process.env.REACT_APP_URL}/GETExpensesData`;
+    let url = `${process.env.REACT_APP_URL}/GETExpensesData`;
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -36,9 +53,9 @@ function ExpensesRecord() {
     }
   };
 
-  useEffect(() => {
-    GetExpensesRecord();
-  }, []);
+  let AddExpense = () => {
+    Navigate('/dashboard/addexpense');
+  };
 
   return (
     <>
@@ -46,6 +63,11 @@ function ExpensesRecord() {
       <Typography variant="h6" align="left">
         Expenses Record
       </Typography>
+      <div className="d-flex justify-content-end flex-wrap m-3">
+        <Button variant="contained" color="warning" onClick={AddExpense}>
+          Add New Expense
+        </Button>
+      </div>
       <Stack direction="row">
         {FilterData && (
           <TableContainer>
@@ -56,6 +78,7 @@ function ExpensesRecord() {
                   <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Amount</TableCell>
                   <TableCell align="right">Date</TableCell>
+                  <TableCell align="right">Type</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -64,9 +87,10 @@ function ExpensesRecord() {
                     {' '}
                     {/* Use a unique identifier for the key */}
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell align="right">{ele.Type}</TableCell>
+                    <TableCell align="right">{ele.Name}</TableCell>
                     <TableCell align="right">{ele.Amount}</TableCell>
                     <TableCell align="right">{ele.Date}</TableCell>
+                    <TableCell align="right">{ele.Type}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -8,7 +8,7 @@ function ExpensesRecord() {
   const ref = useRef(null);
 
   const GetExpensesRecord = async () => {
-    setIssue('')
+    setIssue('');
     ref.current.continuousStart();
     let obj = { Type: 'Expenses' };
     let url = `${process.env.REACT_APP_URL}/GETExpensesData`;
@@ -57,6 +57,7 @@ function ExpensesRecord() {
                   <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Amount</TableCell>
                   <TableCell align="right">Date</TableCell>
+                  <TableCell align="right">Type</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -65,9 +66,10 @@ function ExpensesRecord() {
                     {' '}
                     {/* Use a unique identifier for the key */}
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell align="right">{ele.Type}</TableCell>
+                    <TableCell align="right">{ele.Name}</TableCell>
                     <TableCell align="right">{ele.Amount}</TableCell>
                     <TableCell align="right">{ele.Date}</TableCell>
+                    <TableCell align="right">{ele.Type}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

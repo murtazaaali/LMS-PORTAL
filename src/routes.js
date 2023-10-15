@@ -15,6 +15,7 @@ import { StudentSlip } from './Module/Finanance/pages/StudentSlip';
 import StudentAdmission from './Module/Finanance/pages/StudentAdmission';
 import Record from './Module/Finanance/pages/Record';
 import { AddRecord } from './Module/Finanance/pages/AddRecord';
+import { AddExpense } from './Module/Finanance/pages/AddExpense';
 
 // Admin Module routes
 import AdminDashboardLayout from './Module/Admin/layouts/dashboard';
@@ -28,6 +29,8 @@ import { Courses } from './Module/Admin/pages/Courses';
 import { AssignCourses } from './Module/Admin/pages/AssignCourses';
 import { EnrollmentPage } from './Module/Admin/pages/Enrollment';
 import { AddProgram } from './Module/Admin/pages/AddPrograms';
+import { CoursesList } from './Module/Admin/pages/CoursesList';
+import { CourseStudentList } from './Module/Admin/pages/CourseStudentList';
 
 // Teacher Module Routes
 import TeacherDashboardLayout from './Module/Teacher/layouts/dashboard';
@@ -60,7 +63,12 @@ import RecoveryDashboardAppPage from './Module/Recovery/pages/DashboardAppPage';
 import { BalancesPage } from './Module/Recovery/pages/Balances';
 // import { FeePage } from './Module/Recovery/pages/Fee';
 
-
+// Query Handler Pages
+import QueryHandlerDashboardLayout from './Module/QueryHandle/layouts/dashboard';
+import QueryHanlderDashboardAppPage from './Module/QueryHandle/pages/DashboardAppPage';
+import AddQuery from './Module/QueryHandle/pages/RegisterQuery';
+import QueryList from './Module/QueryHandle/pages/QueryHandling';
+import { UpdateQuery } from './Module/QueryHandle/pages/UpdateQuery';
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -85,6 +93,7 @@ export default function Router() {
     { path: 'slip', element: <StudentSlip /> },
     { path: 'record/:recordType', element: <Record /> },
     { path: 'addrecord', element: <AddRecord /> },
+    { path: 'addexpense', element: <AddExpense /> },
   ];
 
   const adminRoutes = [
@@ -99,6 +108,8 @@ export default function Router() {
     { path: 'assign', element: <AssignCourses /> },
     { path: 'program', element: <AddProgram /> },
     { path: 'enrollment', element: <EnrollmentPage /> },
+    { path: 'courselist', element: <CoursesList /> },
+    { path: 'studentlist/:CourseID', element: <CourseStudentList /> },
   ];
 
   const studentRoutes = [
@@ -122,7 +133,14 @@ export default function Router() {
     { element: <Navigate to="/dashboard/app" />, index: true },
     { path: 'app', element: <RecoveryDashboardAppPage /> },
     { path: 'balances', element: <BalancesPage /> },
-    
+  ];
+
+  const queryhandlerRoutes = [
+    { element: <Navigate to="/dashboard/app" />, index: true },
+    { path: 'app', element: <QueryHanlderDashboardAppPage /> },
+    { path: 'registerquery', element: <AddQuery /> },
+    { path: 'querylist', element: <QueryList /> },
+    { path: 'updatequery', element: <UpdateQuery /> },
   ];
 
   const undefinedRoutes = [
@@ -147,6 +165,8 @@ export default function Router() {
           <HRDashboardLayout />
         ) : moduleName === 'recovery' ? (
           <RecoveryDashboardLayout />
+        ) : moduleName === 'queryhandler' ? (
+          <QueryHandlerDashboardLayout />
         ) : (
           <LoginPage />
         ),
@@ -163,6 +183,8 @@ export default function Router() {
           ? hrRoutes
           : moduleName === 'recovery'
           ? recoveryRoutes
+          : moduleName === 'queryhandler'
+          ? queryhandlerRoutes
           : undefinedRoutes,
     },
     {

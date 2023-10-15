@@ -7,7 +7,9 @@ export const AddmsionSchema = Yup.object({
   // DOB: Yup.date().required('Date of Birth is required'),
   Gender: Yup.string().required('Gender is required'),
   CNIC: Yup.number().positive().required('CNIC is required'),
-  GuardianContact: Yup.string().required('Guardian Contact is required'),
+  GuardianContact: Yup.number()
+    .required('Guardian Contact is required')
+    .test('len', 'Must be exactly 11 characters', (val) => val.toString().length === 10),
   Email: Yup.string().email('Invalid email format').required('Email is required'),
   PostalAddress: Yup.string().required('Postal Address is required'),
   firstInstallment: Yup.number().positive().required('Feld is required'),
@@ -39,7 +41,10 @@ export const RegisterQuerySchema = Yup.object({
   DealBy: Yup.string().required('Deal By is Required'),
   DoneBy: Yup.string().required('Done By is Required'),
   // Phone: Yup.number().positive().length(11, 'Invalid phone number').required('Phone Number By is Required'),
-  Phone:  Yup.number().positive().required().test('len', 'Must be exactly 11 Digit', val => val.length === 11),
+  Phone: Yup.number()
+    .positive()
+    .required()
+    .test('len', 'Must be exactly 11 characters', (val) => val.toString().length === 10),
   QueryDate: Yup.string().required('Query Date is Required'),
   Status1: Yup.string().required('Status 1 is Required'),
   Status2: Yup.string().required('Status 2 is Required'),
@@ -66,5 +71,12 @@ export const AddRecordSchema = Yup.object({
   Type: Yup.string().required('Type is Required'),
   SubmitedBy: Yup.string().required('SubmitedBy is Required'),
   StudentID: Yup.string().required('StudentID is Required'),
+  Amount: Yup.number('add valid amount').positive('add valid amount').required('Amount is Required'),
+});
+
+export const AddExpenseSchema = Yup.object({
+  Date: Yup.string().required('Date is Required'),
+  ExpensedType: Yup.string().required('ExpenseType is Required'),
+  Name: Yup.string().required('SubmitedBy is Required'),
   Amount: Yup.number('add valid amount').positive('add valid amount').required('Amount is Required'),
 });

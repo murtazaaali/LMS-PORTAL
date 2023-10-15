@@ -48,6 +48,11 @@ const navConfig = [
     path: '/dashboard/conatct',
     icon: <ContactPageIcon />,
   },
+  {
+    title: 'Courses List',
+    path: '/dashboard/courselist',
+    icon: <ContactPageIcon />,
+  },
 ];
 
 export default navConfig;

@@ -43,7 +43,6 @@ const navConfig = [
     path: '/dashboard/record/expenses',
     icon: <DescriptionIcon />,
   },
-
   // {
   //   title: 'Not found',
   //   path: '/404',

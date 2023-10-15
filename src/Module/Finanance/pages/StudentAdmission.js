@@ -300,45 +300,27 @@ function StudentAdmission() {
                     <thead className="table-dark">
                       <tr className="mb-2">
                         <th scope="col">
-                          <select
+                          <input
+                            className="form-control h-100 shadow-sm"
+                            type="text"
                             name="DegreeCerifcate"
-                            className="form-control"
-                            id=""
+                            placeholder="DegreeCerifcate"
                             onChange={formik.handleChange}
                             value={formik.values.DegreeCerifcate}
-                          >
-                            <option className="dropdown-item" value="">
-                              --Certificate/Degree--
-                            </option>
-                            <option className="dropdown-item" value="BSCS">
-                              BSCS
-                            </option>
-                            <option className="dropdown-item" value="BSIT">
-                              BSIT
-                            </option>
-                          </select>
+                          />
                           {formik.touched.DegreeCerifcate && formik.errors.DegreeCerifcate ? (
                             <div className="text-danger">{formik.errors.DegreeCerifcate}</div>
                           ) : null}
                         </th>
                         <th scope="col">
-                          <select
+                          <input
+                            className="form-control h-100 shadow-sm"
+                            type="text"
+                            placeholder="Institute"
                             name="Institute"
-                            className="form-control"
-                            id=""
                             onChange={formik.handleChange}
                             value={formik.values.Institute}
-                          >
-                            <option className="dropdown-item" value="">
-                              --Collage/University--
-                            </option>
-                            <option className="dropdown-item" value="MAO">
-                              MAO
-                            </option>
-                            <option className="dropdown-item" value="PU">
-                              PU
-                            </option>
-                          </select>
+                          />
                           {formik.touched.Institute && formik.errors.Institute ? (
                             <div className="text-danger">{formik.errors.Institute}</div>
                           ) : null}
@@ -371,14 +353,6 @@ function StudentAdmission() {
                         </th>
                       </tr>
                     </thead>
-                    {/* <tbody className="border-dark">
-                      <tr>
-                        <th>BSCS</th>
-                        <td>PU</td>
-                        <td>2023</td>
-                        <td>80%</td>
-                      </tr>
-                    </tbody> */}
                   </table>
                 </div>
 

@@ -27,7 +27,7 @@ export default function LoginForm() {
     ref.current.continuousStart();
     ref.current.staticStart();
 
-    let url = `${process.env.REACT_APP_URL}/AcademyLogin`;
+    let url = `http://localhost:8080/AcademyLogin`;
     const result = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(Data),

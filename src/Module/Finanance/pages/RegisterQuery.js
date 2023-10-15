@@ -6,7 +6,7 @@ import { RegisterQuerySchema } from './validationSchema';
 
 function RegisterQuery() {
   const [StudentID, setStudentID] = useState(0);
-  const [Mes, setMes] = useState(null);
+  const [Mes, setMes] = useState('');
   const Navigate = useNavigate();
   const ref = useRef(null);
 
@@ -15,7 +15,8 @@ function RegisterQuery() {
   }, []);
 
   const GETID = async () => {
-    const url = `${process.env.REACT_APP_URL}/QueryRegister`;
+    // const url = `${process.env.REACT_APP_URL}/QueryRegister`;
+    const url = `http://localhost:8080/QueryRegister`;
     await fetch(url, {
       method: 'GET',
     })
@@ -28,37 +29,33 @@ function RegisterQuery() {
   };
 
   const InsertQuery = async (obj) => {
-    try {
-      let ID = { Student_ID: StudentID };
-      const Data = { ...ID, ...obj };
-      console.log(Data);
-      ref.current.continuousStart();
-      // console.log({ ...obj, StudentID: StudentID });
-      ref.current.staticStart();
+    setMes('');
+    console.log('func runs');
+    let ID = { Student_ID: StudentID };
+    const Data = { ...ID, ...obj };
+    // console.log(Data);
+    ref.current.continuousStart();
+    // console.log({ ...obj, StudentID: StudentID });
+    ref.current.staticStart();
 
-      const url = `${process.env.REACT_APP_URL}/QueryRegister`;
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(Data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setMes('Data Successfully Inserted');
-        if (window.confirm('Go to Add Query ..!')) {
-          Navigate('/dashboard/query');
-        }
-      } else {
-        console.error('HTTP error:', response.status);
-        setMes('HTTP Error');
+    const url = `${process.env.REACT_APP_URL}/QueryRegister`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(Data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setMes('Data Successfully Inserted');
+      if (window.confirm('Go to Add Query ..!')) {
+        Navigate('/dashboard/query');
       }
-    } catch (error) {
-      ref.current.complete();
-      console.error('Error:', error);
-      setMes(`Some Technical Issue Found ... )`);
+    } else {
+      console.error('HTTP error:', response.status);
+      setMes('HTTP Error');
     }
   };
 
