@@ -36,7 +36,7 @@ function StudentSlip() {
         ...values,
       };
 
-      const url = `${process.env.REACT_APP_URL}/AddStudentSlip`;
+      let url = `${process.env.REACT_APP_URL}/AddStudentSlip`;
       // const url = 'http://localhost:8080/AddStudentSlip';
       const response = await fetch(url, {
         method: 'POST',

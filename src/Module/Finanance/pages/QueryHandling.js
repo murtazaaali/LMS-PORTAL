@@ -208,13 +208,14 @@ function QueryHandling() {
                         <td className="m-2">{ele.Student_ID}</td>
                         <td className="m-2">{ele.StudentName}</td>
                         <td className="m-2">{ele.QueryDate}</td>
+                        <td className="m-2">{ele.refrence}</td>
+                        <td className="m-2">{ele.remarks}</td>
                         <td className="m-2">{ele.DealBy}</td>
                         <td className="m-2">{ele.DoneBy}</td>
                         <td className="m-2">{ele.Status1}</td>
                         <td className="m-2">{ele.Status2}</td>
                         <td className="m-2">{ele.Status3}</td>
-                        <td className="m-2">{ele.refrence}</td>
-                        <td className="m-2">{ele.remarks}</td>
+
                         <th className="m-2">
                           {ele.Status1 === 'Active' && ele.Status2 === 'Active' && ele.Status3 === 'Active' ? (
                             <button className="btn btn-danger" onClick={() => AdmissionStudent(ele)}>

@@ -16,7 +16,7 @@ function CreateUser() {
   }, [UserType]);
 
   const GetValue = async () => {
-    setMes('')
+    setMes('');
     // console.log(UserType);
     let obj = { UserType };
     // let url = `http://localhost:8080/GetAdmissionUserList`;
@@ -112,7 +112,7 @@ function CreateUser() {
                       <td>{ele.AppliedCourse}</td> */}
                       <td>{ele.Student_ID ? ele.Student_ID : ele.Teacher_ID}</td>
                       <td>{ele.StudentName ? ele.StudentName : ele.TeacherName}</td>
-                      <td>{ele.AppliedCourse ? ele.StudentName : ele.TeachCourse}</td>
+                      <td>{ele.AppliedCourse ? ele.AppliedCourse : ele.TeachCourse}</td>
                       <td>
                         <div className="d-flex justify-content-center">
                           <Button variant="contained" color="error" onClick={() => CreateID({ ...ele })}>

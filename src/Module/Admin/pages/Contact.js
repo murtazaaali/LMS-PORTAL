@@ -12,7 +12,7 @@ function ContactFunc() {
   const ref = useRef(null);
 
   const GETSalesData = async () => {
-    setIssue('')
+    setIssue('');
     ref.current.continuousStart();
     // const url = `http://localhost:8080/GetUserConact`;
     let url = `${process.env.REACT_APP_URL}/GetUserConact`;
@@ -69,7 +69,7 @@ function ContactFunc() {
                   return (
                     <TableRow key={index}>
                       <TableCell>{index}</TableCell>
-                      <TableCell align="right">{ele.Name}</TableCell>
+                      <TableCell align="right">{ele.TeacherName}</TableCell>
                       <TableCell align="right">{ele.Contact}</TableCell>
                       <TableCell align="right">{ele.Email}</TableCell>
                       <TableCell align="right">{ele.Designation}</TableCell>

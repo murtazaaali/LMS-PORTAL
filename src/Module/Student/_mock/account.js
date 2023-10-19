@@ -1,8 +1,11 @@
 // ----------------------------------------------------------------------
 
+const data = JSON.parse(localStorage.getItem('Academy'));
+const username = data.Username.split('@')[0];
+
 const account = {
-  displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
+  displayName: 'Teacher Portal',
+  email: username,
   photoURL: '/assets/images/avatars/avatar_default.jpg',
 };
 

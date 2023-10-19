@@ -16,6 +16,7 @@ import StudentAdmission from './Module/Finanance/pages/StudentAdmission';
 import Record from './Module/Finanance/pages/Record';
 import { AddRecord } from './Module/Finanance/pages/AddRecord';
 import { AddExpense } from './Module/Finanance/pages/AddExpense';
+import { Count } from './Module/Finanance/pages/Count';
 
 // Admin Module routes
 import AdminDashboardLayout from './Module/Admin/layouts/dashboard';
@@ -69,6 +70,16 @@ import QueryHanlderDashboardAppPage from './Module/QueryHandle/pages/DashboardAp
 import AddQuery from './Module/QueryHandle/pages/RegisterQuery';
 import QueryList from './Module/QueryHandle/pages/QueryHandling';
 import { UpdateQuery } from './Module/QueryHandle/pages/UpdateQuery';
+
+// Admission
+
+import AdmissionDashboardLayout from './Module/Admission/layouts/dashboard';
+import AdmssionDashboardAppPage from './Module/Admission/pages/DashboardAppPage';
+import AdmissionRegisterQuery from './Module/Admission/pages/RegisterQuery';
+import AdmissionQueryHandling from './Module/Admission/pages/QueryHandling';
+import AdmissionStudentSlip from './Module/Admission/pages/StudentSlip';
+import NewStudentAdmission from './Module/Admission/pages/StudentAdmission';
+
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -94,6 +105,7 @@ export default function Router() {
     { path: 'record/:recordType', element: <Record /> },
     { path: 'addrecord', element: <AddRecord /> },
     { path: 'addexpense', element: <AddExpense /> },
+    { path: 'count', element: <Count /> },
   ];
 
   const adminRoutes = [
@@ -143,6 +155,15 @@ export default function Router() {
     { path: 'updatequery', element: <UpdateQuery /> },
   ];
 
+  const admissionRoutes = [
+    { element: <Navigate to="/dashboard/app" />, index: true },
+    { path: 'app', element: <AdmssionDashboardAppPage /> },
+    { path: 'registerquery', element: <AdmissionRegisterQuery /> },
+    { path: 'query', element: <AdmissionQueryHandling /> },
+    { path: 'admission', element: <NewStudentAdmission /> },
+    { path: 'slip', element: <AdmissionStudentSlip /> },
+  ];
+
   const undefinedRoutes = [
     { element: <Navigate to="login" />, index: true },
     { path: '404', element: <Page404 /> },
@@ -167,6 +188,8 @@ export default function Router() {
           <RecoveryDashboardLayout />
         ) : moduleName === 'queryhandler' ? (
           <QueryHandlerDashboardLayout />
+        ) : moduleName === 'admission' ? (
+          <AdmissionDashboardLayout />
         ) : (
           <LoginPage />
         ),
@@ -185,6 +208,8 @@ export default function Router() {
           ? recoveryRoutes
           : moduleName === 'queryhandler'
           ? queryhandlerRoutes
+          : moduleName === 'admission'
+          ? admissionRoutes
           : undefinedRoutes,
     },
     {

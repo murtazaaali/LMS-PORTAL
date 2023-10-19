@@ -25,15 +25,17 @@ function CreateID() {
     return userID;
   };
   const UserID = GenerateID();
+
   const handleSubmit = async () => {
-    setMes('')
+    setMes('');
     let obj = {
       username: UserID,
-      password: `${userData.UserType}12345`,
+      password: `${userData.UserType.toLowerCase()}12345`,
       Status: 'Active',
       Name: userValues.StudentName ? userValues.StudentName : userValues.TeacherName,
+      Designation: userData.UserType.toLowerCase(),
     };
-    let Data = { obj, user: userData.UserType };
+    let Data = { obj };
     // let url = `http://localhost:8080/createUser`;
     let url = `${process.env.REACT_APP_URL}/createUser`;
     let resp = await fetch(url, {

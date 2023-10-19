@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -10,22 +10,8 @@ import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-
   const [Login, setLogin] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    setLogin({ ...LoginSchema });
-  }, []);
-
-  const LoginSchema = {
-    username: '',
-    password: '',
-  };
-
-  // const handleClick = () => {
-  //   navigate('/dashboard', { replace: true });
-  // };
 
   const handleLoginInfo = (e) => {
     if (e.target.value.match(/^\s*$/) === null || e.target.value.match(/^\s*$/) !== '') {
